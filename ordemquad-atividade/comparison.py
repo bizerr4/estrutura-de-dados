@@ -1,55 +1,47 @@
+import random #optei por pegar um numero aleatório dentre 0 e 10000 já q eu nn tinha o arquivo .in 
 import time
 
-def select_sort(vector):
-    tamanho = len(vector)
-    for i in range(tamanho):
-        indice_minimo = i
-        for j in range(i + 1, tamanho):
-            if vector[j] < vector[indice_minimo]:
-                indice_minimo = j
-        
-        if indice_minimo != i:
-            vector[i], vector[indice_minimo] = vector[indice_minimo], vector[i]
+def selection_sort(vetor):
+    n = len(vetor)
+    for i in range(n):
+        min_idx = i
+        for j in range(i+1, n):
+            if vetor[j] < vetor[min_idx]:
+                min_idx = j
+        vetor[i], vetor[min_idx] = vetor[min_idx], vetor[i]
+    return vetor
 
-def insert_sort(vector):
-    for i in range(1, len(vector)):
-        chave = vector[i]
+def insertion_sort(vetor):
+    for i in range(1, len(vetor)):
+        valor = vetor[i]
         j = i - 1
-        while j >= 0 and vector[j] > chave:
-            vector[j + 1] = vector[j]
+        while j >= 0 and vetor[j] > valor:
+            vetor[j+1] = vetor[j]
             j -= 1
-        vector[j + 1] = chave
+        vetor[j+1] = valor
+    return vetor
 
-def cvectoregar_numeros_do_arquivo(path):
-    with open(path, 'r') as f:
-        return [int(linha.strip()) for linha in f]
+#compara tempo
+def comparar(n):
 
-def executar_e_medir(nome_algoritmo, funcao_ordenacao, dados_originais):
-    dados_para_ordenar = dados_originais.copy()
+    lista = [random.randint(0, 10000) for _ in range(n)]
     
-    inicio = time.perf_counter()
-    funcao_ordenacao(dados_para_ordenar)
-    fim = time.perf_counter()
+    # select sort
+    lista_sel = lista.copy()
+    inicio = time.time()
+    selection_sort(lista_sel)
+    tempo_selection = time.time() - inicio
     
-    duracao_ms = (fim - inicio) * 1000
-    print(f"{nome_algoritmo} levou {duracao_ms:.2f} ms para ordenar")
+    # insert sorte
+    lista_ins = lista.copy()
+    inicio = time.time()
+    insertion_sort(lista_ins)
+    tempo_insertion = time.time() - inicio
+    
+    print(f"tamanho da lista: {n}")
+    print(f"selection sort: {tempo_selection:.6f} segundos")
+    print(f"insertion sort: {tempo_insertion:.6f} segundos")
+    print("-"*40)
 
-def principal():
-    try:
-        path_arquivo = input("digite o caminho do arquivo de entrada: ")
-        numeros = cvectoregar_numeros_do_arquivo(path_arquivo)
-        
-        print(f"\nanalisando arquivo com {len(numeros)} numeros...")
-        
-        executar_e_medir("selection sort", select_sort, numeros)
-        executar_e_medir("insertion sort", insert_sort, numeros)
-
-    except FileNotFoundError:
-        print("arquivo nao encontrado.")
-    except ValueError:
-        print("o arquivo contem linhas que nao sao numeros inteiros validos")
-    except Exception as e:
-        print(f"ocorreu um erro inesperado: {e}")
-
-if __name__ == "__main__":
-    principal()
+for tamanho in [100, 1000, 5000]:
+    comparar(tamanho)
