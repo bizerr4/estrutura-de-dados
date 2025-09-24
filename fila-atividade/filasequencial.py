@@ -1,39 +1,30 @@
 class FilaSequencial:
-    def __init__(self, capacidade):
-        self.capacidade = capacidade
-        self.fila = [None] * capacidade  # vetor fixo
-        self.inicio = 0  # índice do primeiro elemento
-        self.fim = -1    # índice do último elemento
-        self.tamanho = 0 # quantidade de elementos na fila
+    def __init__(self):
+        self._dados = []
 
-    def esta_vazia(self):
-        return self.tamanho == 0
-
-    def esta_cheia(self):
-        return self.tamanho == self.capacidade
-
-    def enfileirar(self, valor):
-        if self.esta_cheia():
-            print("Fila cheia! Não é possível adicionar:", valor)
-            return
-        self.fim = (self.fim + 1) % self.capacidade
-        self.fila[self.fim] = valor
-        self.tamanho += 1
+    def enfileirar(self, item):
+        self._dados.append(item)
+        print(f"enfileirado: {item}")
 
     def desenfileirar(self):
         if self.esta_vazia():
-            print("Fila vazia! Nada a remover.")
-            return None
-        valor = self.fila[self.inicio]
-        self.fila[self.inicio] = None  # opcional, só para visualização
-        self.inicio = (self.inicio + 1) % self.capacidade
-        self.tamanho -= 1
-        return valor
+            raise IndexError("fila vazia, não tem como desenfileirar")
+        item_removido = self._dados.pop(0)
+        print(f" desenfileirado: {item_removido}")
+        return item_removido
 
-    def frente(self):
+    def primeiro(self):
         if self.esta_vazia():
-            return None
-        return self.fila[self.inicio]
+            raise IndexError("fila tá vazia")
+        return self._dados[0]
 
-    def mostrar(self):
-        return self.fila
+    def esta_vazia(self):
+        return len(self._dados) == 0
+
+    def tamanho(self):
+        return len(self._dados)
+
+    def __str__(self):
+        if self.esta_vazia():
+            return "fila vazia"
+        return f"fila: {self._dados}"
