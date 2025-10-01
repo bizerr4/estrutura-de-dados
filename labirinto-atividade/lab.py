@@ -39,7 +39,7 @@ def resolver_labirinto(labirinto, inicio, objetivo):
 
         # verifica se achou o objetivo
         if pos == objetivo:
-            print("Tesouro encontrado em:", pos)
+            print("tesouro encontrado em:", pos)
             return True
 
         # marca posição como visitada
@@ -51,9 +51,9 @@ def resolver_labirinto(labirinto, inicio, objetivo):
             for nx, ny in movimentos:       
                 if 0 <= nx < len(labirinto) and 0 <= ny < len(labirinto[0]):    #garante que não saia do mapa
                     if labirinto[nx][ny] == 1 and (nx, ny) not in visitados:    # só anda em caminhos livres (1)
-                        pilha.push((nx, ny))
+                        pilha.push((nx, ny)) #
 
-    print("Não existe caminho até o tesouro.")
+    print("não existe caminho até o tesouro")
     return False
 
 #exec
