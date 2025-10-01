@@ -9,7 +9,7 @@ class ListaSequencial:
             self.dados[self.tamanho] = valor
             self.tamanho += 1
         else:
-            print("ista cheia")
+            print("lista cheia")
 
     def inserir_posicao(self, valor, posicao):
         if self.tamanho >= self.capacidade:
@@ -27,7 +27,7 @@ class ListaSequencial:
 
     def remover(self, posicao):
         if posicao < 0 or posicao >= self.tamanho:
-            print("Erro: Posição inválida!")
+            print("posição inválida")
             return
 
         for i in range(posicao, self.tamanho - 1):
