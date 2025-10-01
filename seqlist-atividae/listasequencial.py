@@ -9,7 +9,7 @@ class ListaSequencial:
             self.vetor[self.tamanho] = valor
             self.tamanho += 1
         else:
-            print("Erro: lista cheia.")
+            print("lista cheia")
 
     def mostrar(self):
         for i in range(self.tamanho):
@@ -25,7 +25,7 @@ class ListaSequencial:
     def remover(self, valor):
         pos = self.buscar(valor)
         if pos == -1:
-            print("Valor não encontrado.")
+            print("alor não encontrado")
             return
         for i in range(pos, self.tamanho - 1):
             self.vetor[i] = self.vetor[i + 1]
