@@ -1,33 +1,46 @@
 class ListaSequencial:
-    def __init__(self, tamanho_max):
-        self.tamanho_max = tamanho_max
-        self.tamanho = 0
-        self.vetor = [None] * tamanho_max
+    def __init__(self, capacidade):
+        self.capacidade = capacidade
+        self.dados = [None] * capacidade  # espaço fixo
+        self.tamanho = 0  # quantidade real de elementos
 
     def inserir(self, valor):
-        if self.tamanho < self.tamanho_max:
-            self.vetor[self.tamanho] = valor
+        if self.tamanho < self.capacidade:
+            self.dados[self.tamanho] = valor
             self.tamanho += 1
         else:
-            print("lista cheia")
+            print("ista cheia")
 
-    def mostrar(self):
-        for i in range(self.tamanho):
-            print(self.vetor[i], end=" ")
-        print()
+    def inserir_posicao(self, valor, posicao):
+        if self.tamanho >= self.capacidade:
+            print("lista cheia")
+            return
+        if posicao < 0 or posicao > self.tamanho:
+            print("posição inválida")
+            return
+   
+        for i in range(self.tamanho, posicao, -1):
+            self.dados[i] = self.dados[i-1]
+        
+        self.dados[posicao] = valor
+        self.tamanho += 1
+
+    def remover(self, posicao):
+        if posicao < 0 or posicao >= self.tamanho:
+            print("Erro: Posição inválida!")
+            return
+
+        for i in range(posicao, self.tamanho - 1):
+            self.dados[i] = self.dados[i+1]
+        
+        self.dados[self.tamanho - 1] = None
+        self.tamanho -= 1
 
     def buscar(self, valor):
         for i in range(self.tamanho):
-            if self.vetor[i] == valor:
+            if self.dados[i] == valor:
                 return i
         return -1
 
-    def remover(self, valor):
-        pos = self.buscar(valor)
-        if pos == -1:
-            print("alor não encontrado")
-            return
-        for i in range(pos, self.tamanho - 1):
-            self.vetor[i] = self.vetor[i + 1]
-        self.vetor[self.tamanho - 1] = None
-        self.tamanho -= 1
+    def mostrar(self):
+        print([self.dados[i] for i in range(self.tamanho)])
