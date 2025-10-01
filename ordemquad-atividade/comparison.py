@@ -1,25 +1,23 @@
 import random #optei por pegar um numero aleatório dentre 0 e 10000 já q eu nn tinha o arquivo .in 
 import time
 
-def selection_sort(vetor):
-    n = len(vetor)
-    for i in range(n):
-        min_idx = i
-        for j in range(i+1, n):
-            if vetor[j] < vetor[min_idx]:
-                min_idx = j
-        vetor[i], vetor[min_idx] = vetor[min_idx], vetor[i]
-    return vetor
+def selection_sort(arr):
+    for i in range(0, len(arr) -1):
+        cur_min_idx = i
+        for j in range(i + 1, len(arr)):
+            if arr[j] < arr[cur_min_idx]:
+                cur_min_idx = j
+        arr[i], arr[cur_min_idx] = arr[cur_min_idx], arr[i] #swap
+    return arr
 
-def insertion_sort(vetor):
-    for i in range(1, len(vetor)):
-        valor = vetor[i]
-        j = i - 1
-        while j >= 0 and vetor[j] > valor:
-            vetor[j+1] = vetor[j]
+def insertion_sort(arr):
+    for i in range(1, len(arr)):
+        j = i
+        while arr[j - 1] > arr[j] and j > 0:
+            arr[j - 1], arr[j] = arr[j], arr[j - 1] #swap
             j -= 1
-        vetor[j+1] = valor
-    return vetor
+
+    return arr
 
 #compara tempo
 def comparar(n):
@@ -43,5 +41,5 @@ def comparar(n):
     print(f"insertion sort: {tempo_insertion:.6f} segundos")
     print("-"*40)
 
-for tamanho in [100, 1000, 5000]:
+for tamanho in [100, 1000, 5000, 10001]:
     comparar(tamanho)
