@@ -3,7 +3,7 @@ class No:
         self.dado = dado
         self.proximo = None
 
-class ListaEncadeada:
+class ListaLinkada:
     def __init__(self):
         self.cabeca = None
 
@@ -31,7 +31,7 @@ class ListaEncadeada:
             anterior = atual
             atual = atual.proximo
         if atual is None:
-            print("Valor não encontrado.")
+            print("valor não encontrado")
             return
         if anterior is None:
             self.cabeca = atual.proximo
